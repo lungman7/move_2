@@ -1,25 +1,35 @@
-input.onGesture(Gesture.LogoUp, function () {
-    led.unplot(x, y)
-    y += 1
-})
-input.onGesture(Gesture.LogoDown, function () {
-    led.unplot(x, y)
-    y += -1
-})
-input.onGesture(Gesture.TiltLeft, function () {
-    led.unplot(x, y)
-    x += -1
-})
-input.onGesture(Gesture.TiltRight, function () {
-    led.unplot(x, y)
-    x += 1
-})
-let lmy = 0
+function up () {
+    if (my > lmy) {
+        led.unplot(x, y)
+        y += 1
+    }
+}
+function left () {
+    if (mx > lmx) {
+        led.unplot(x, y)
+        x += 1
+    }
+}
+function down () {
+    if (my < lmy) {
+        led.unplot(x, y)
+        y += -1
+    }
+}
+function riight () {
+    if (mx < lmx) {
+        led.unplot(x, y)
+        x += -1
+    }
+}
 let lmx = 0
+let lmy = 0
 let y = 0
 let x = 0
-let mx = 2
-let my = 2
+let my = 0
+let mx = 0
+mx = 2
+my = 2
 x = 2
 y = 2
 basic.showLeds(`
@@ -36,6 +46,10 @@ basic.forever(function () {
     my = input.acceleration(Dimension.Y)
     serial.writeNumber(input.acceleration(Dimension.X))
     serial.writeNumber(input.acceleration(Dimension.Y))
+    riight()
+    left()
+    up()
+    down()
     if (x < 0) {
         x = 0
     }
